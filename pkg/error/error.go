@@ -11,8 +11,15 @@ type TError struct {
 	message    string
 }
 
+func NewTError(code TErrorCode, message string) *TError {
+	return &TError{
+		TErrorCode: code,
+		message:    message,
+	}
+}
+
 func (e TError) Error() string {
-	return e.message
+	return fmt.Sprintf("%s: %s", e.TErrorCode.code.Str(), e.message)
 }
 
 func (e TError) ErrorForDisplay(ctx tkcontext.TContext) string {

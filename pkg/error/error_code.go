@@ -2,12 +2,12 @@ package error
 
 // TErrorCode 错误码结构体
 type TErrorCode struct {
-	code  string
+	code  TErrorCodeStr
 	zhMsg string
 	enMsg string
 }
 
-func NewTErrorCode(code, zhMsg, enMsg string) TErrorCode {
+func NewTErrorCode(code TErrorCodeStr, zhMsg, enMsg string) TErrorCode {
 	return TErrorCode{
 		code:  code,
 		zhMsg: zhMsg,
@@ -23,5 +23,15 @@ func (e TErrorCode) GetMessage(lang string) string {
 }
 
 var (
-	CommonResp = NewTErrorCode("COMMON_ERROR", "普通错误", "common error")
+	CommonResp = NewTErrorCode(CommonError, "普通错误", "common error")
+	OutOfIndex = NewTErrorCode(OutOfIndexError, "超出范围", "out of index")
+)
+
+type TErrorCodeStr string
+
+func (t TErrorCodeStr) Str() string { return string(t) }
+
+const (
+	CommonError     TErrorCodeStr = "COMMON_ERROR"
+	OutOfIndexError TErrorCodeStr = "OUT_OF_INDEX_ERROR"
 )
